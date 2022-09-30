@@ -108,14 +108,14 @@ int Matrix::getColumns() { return columns; }
 int Matrix::getElement(int row, int column) const {
     if(row >= this->rows || column >= this->columns) {
         cerr << "Out of bounds get command: " << row << " x " <<  column << " from " << rows << " x " << columns << "\n";
-        return NULL;
+        return 0;
     }
     return elements[row][column]; }
 
 int Matrix::setElement(int row, int column, int value) {
     if(row > this->rows || column > this->columns) {
         cerr << "Out of bounds set command" << "\n";
-        return NULL;
+        return 0;
     }
     int oldValue = this->getElement(row, column);
     this->elements[row][column] = value;

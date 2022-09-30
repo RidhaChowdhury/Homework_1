@@ -115,14 +115,14 @@ int Matrix::getColumns() { return columns; }
 int Matrix::getElement(int row, int column) const {
     if(row >= this->rows || column >= this->columns) {
         cerr << "Out of bounds get command: " << row << " x " <<  column << " from " << rows << " x " << columns << "\n";
-        return NULL;
+        return 0;
     }
     return elements[row][column]; }
 
 int Matrix::setElement(int row, int column, int value) {
     if(row > this->rows || column > this->columns) {
         cerr << "Out of bounds set command" << "\n";
-        return NULL;
+        return 0;
     }
     int oldValue = this->getElement(row, column);
     this->elements[row][column] = value;
@@ -217,11 +217,11 @@ ostream& operator<<(ostream& os, const Matrix& matrix)
 }
 
 // define overloaded >>, receives and returns istream instead of ostream
-istream & operator >> (istream& in,  Matrix& matrix) {
+istream & operator >> (istream& is, Matrix& matrix) {
     cout << "How many rows in Matrix " << matrix.name << ": ";
-    in >> matrix.rows;
+    is >> matrix.rows;
     cout << "How many columns in Matrix " << matrix.name << ": ";
-    in >> matrix.columns;
+    is >> matrix.columns;
     matrix.name = "Default";
 
     matrix.elements = new int*[matrix.rows];
@@ -236,6 +236,7 @@ istream & operator >> (istream& in,  Matrix& matrix) {
             cin >> matrix.elements[row][column];
         }
     }
+    return is;
 }
 
 
@@ -309,7 +310,7 @@ int main()
 
     // Prompt user for information for first matrix
     // Collect input and create instance of Matrix
-    cout << "Lets set up the matrixOne matrix! \n";
+    cout << "Lets set up the first matrix! \n";
     cin >> matrixOne;
     cout << matrixOne;
 
