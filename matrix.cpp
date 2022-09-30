@@ -210,7 +210,6 @@ Matrix userGeneratedMatrix(string name) {
     cin >> columns;
     Matrix newMatrix(rows, columns, name);
 
-    string elements;
     cout << "Expecting " << rows * columns << " elements. \n";
     cout << "What are your elements, space seperated: ";
 

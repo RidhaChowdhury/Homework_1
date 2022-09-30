@@ -15,6 +15,10 @@
 // 1. Please use this portion of the banner comment to list
 // any resources or individuals you consulted on the creation
 // of this program.
+//Resources:
+//W3Schools
+//Previously Answered Stack Overflow Questions
+//Some random youtube videos about segmentation faults smart pointers which i didnt implement
 //---------------------------------------------------------------------
 
 #include <iostream>
@@ -33,6 +37,7 @@ public:
     int** elements;
 
     // declare non-default constructor, two parameters for row and column size
+    Matrix(string name);
     Matrix(int rows, int columns, string name);
     Matrix(int rows, int columns);
     // declare destructor
@@ -51,7 +56,7 @@ public:
     friend Matrix* operator*(const Matrix&, const Matrix&);
     friend Matrix* operator*(const Matrix&, int);
     friend ostream& operator<<(ostream&, const Matrix&);
-
+    friend istream & operator >> (istream& in,  Matrix& c);
     void print() const;
 
 };
@@ -212,6 +217,27 @@ ostream& operator<<(ostream& os, const Matrix& matrix)
 }
 
 // define overloaded >>, receives and returns istream instead of ostream
+istream & operator >> (istream& in,  Matrix& matrix) {
+    cout << "How many rows in Matrix " << matrix.name << ": ";
+    in >> matrix.rows;
+    cout << "How many columns in Matrix " << matrix.name << ": ";
+    in >> matrix.columns;
+    matrix.name = "Default";
+
+    matrix.elements = new int*[matrix.rows];
+    for(int row = 0; row < matrix.rows; row++) {
+        matrix.elements[row] = new int[matrix.columns];
+    }
+
+    cout << "Expecting " << matrix.rows * matrix.columns << " elements. \n";
+    cout << "What are your elements, space seperated: ";
+    for(int row = 0; row < matrix.rows; row++) {
+        for(int column = 0; column < matrix.columns; column++) {
+            cin >> matrix.elements[row][column];
+        }
+    }
+}
+
 
 void Matrix::print() const {
     cout << this->name << ":\n";
@@ -232,6 +258,19 @@ void Matrix::print() const {
     cout << "\n";
 
 }
+
+Matrix::Matrix(string name) {
+    this->name = name;
+}
+
+/*istream & operator >> (istream &in,  Matrix &c)
+{
+    cout << "Enter Real Part ";
+    in >> c.real;
+    cout << "Enter Imaginary Part ";
+    in >> c.imag;
+    return in;
+}*/
 
 Matrix userGeneratedMatrix(string name) {
     int rows, columns;
@@ -260,33 +299,55 @@ Matrix userGeneratedMatrix(string name) {
 
 int main()
 {
-    Matrix matrixOne = userGeneratedMatrix("One");
-    Matrix matrixTwo = userGeneratedMatrix("Two");
-
-    matrixOne.print();
-    matrixTwo.print();
-
-    Matrix* sum = matrixOne + matrixTwo;
-    cout << *sum;
-
     // Remember you have to use >> and << to your matrix object instances to fill and print them
+    Matrix matrixOne("First");
+    Matrix matrixTwo("Second");
+
 
     // When you print Matrix pointers (object pointers), remember to dereference
     // the pointer when you invoke << (output), and it accepts an object reference, not an object pointers
 
-
     // Prompt user for information for first matrix
     // Collect input and create instance of Matrix
+    cout << "Lets set up the matrixOne matrix! \n";
+    cin >> matrixOne;
+    cout << matrixOne;
+
 
     // Prompt user for information for second matrix
     // Collect input and create second instance of Matrix
+    cout << "Lets set up the second matrix! \n";
+    cin >> matrixTwo;
+    cout << matrixTwo;
 
     // Perform calculations as described in assignment using member functions
     // Be sure to check matrices size for add/sub, and then mult
+
+    // Addition
+    Matrix* sumMatrix = matrixOne + matrixTwo;
+    if(sumMatrix != NULL) { cout << *sumMatrix << "\n"; }
+
+    // Subtraction
+    Matrix* differenceMatrix = matrixOne- matrixTwo;
+    if(differenceMatrix!= NULL) { cout << *differenceMatrix << "\n"; }
+
+    // Multiplication
+    Matrix* matrixProduct = matrixOne * matrixTwo;
+    if(matrixProduct != NULL) { cout << *matrixProduct << "\n"; }
+
+    // Scalar Multiplication
+    srand(time(NULL));
+    int randomScalar = rand() % 10;
+    cout << "Multiplying Matrix One by random scalar: " << randomScalar << "\n";
+    Matrix* scalarProduct = matrixOne * randomScalar;
+    cout << *scalarProduct << "\n";
+    cout << "\n";
+    cout << "Thank you!\n\n-Ridha Chowdhury";
+
 
     // Be sure to output details about calculation being performed and the results
     // When you print Matrix pointers (object pointers), remember to dereference
     // the pointer when you invoke << (output), and it accepts an object reference, not an object pointers
 
-    return 0;
+    return 505;
 }
