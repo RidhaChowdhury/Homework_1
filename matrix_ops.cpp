@@ -338,7 +338,7 @@ int main()
 
     // Scalar Multiplication
     srand(time(NULL));
-    int randomScalar = rand() % 10;
+    int randomScalar = (rand() % 9) + 1;
     cout << "Multiplying Matrix One by random scalar: " << randomScalar << "\n";
     Matrix* scalarProduct = matrixOne * randomScalar;
     cout << *scalarProduct << "\n";
