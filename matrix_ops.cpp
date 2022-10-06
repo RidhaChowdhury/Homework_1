@@ -345,10 +345,10 @@ int main()
     cout << "\n";
     cout << "Thank you!\n\n-Ridha Chowdhury";
 
-
-    // Be sure to output details about calculation being performed and the results
-    // When you print Matrix pointers (object pointers), remember to dereference
-    // the pointer when you invoke << (output), and it accepts an object reference, not an object pointers
+    delete sumMatrix;
+    delete differenceMatrix;
+    delete matrixProduct;
+    delete scalarProduct;
 
     return 505;
 }

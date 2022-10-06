@@ -254,6 +254,10 @@ int main() {
     cout << "\n";
     cout << "Thank you!\n\n-Ridha Chowdhury";
 
+    delete sumMatrix;
+    delete differenceMatrix;
+    delete matrixProduct;
+    delete scalarProduct;
 
     return 505;
 }
